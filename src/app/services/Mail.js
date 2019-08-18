@@ -5,13 +5,15 @@ const exphbs = require('express-handlebars')
 const mailConfig = require('../../config/mail')
 
 const transport = nodemailer.createTransport(mailConfig)
-const viewPath = path.join(__dirname, '..', 'views', 'emails')
+const viewPath = path.resolve(__dirname, '..', 'views', 'emails')
+const layoutPath = path.resolve(__dirname, '..', 'views', 'layouts')
 
 transport.use(
   'compile',
   hbs({
     viewEngine: exphbs.create({
-      partialsDir: path.join(viewPath, 'partials')
+      partialsDir: path.resolve(viewPath, 'partials'),
+      layoutsDir: layoutPath
     }),
     viewPath,
     extName: '.hbs'

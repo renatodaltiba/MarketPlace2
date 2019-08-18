@@ -9,9 +9,13 @@ const controllers = require('./app/controllers')
 routes.post('/users', controllers.UserController.store)
 routes.post('/sessions', controllers.SessionController.store)
 
-routes.get('/ads', authMiddleware, controllers.AdController.index)
-routes.get('/ads/:id', authMiddleware, controllers.AdController.show)
-routes.post('/ads', authMiddleware, controllers.AdController.store)
-routes.put('/ads/:id', authMiddleware, controllers.AdController.update)
-routes.delete('/ads/:id', authMiddleware, controllers.AdController.destroy)
+routes.use(authMiddleware)
+routes.get('/ads', controllers.AdController.index)
+routes.get('/ads/:id', controllers.AdController.show)
+routes.post('/ads', controllers.AdController.store)
+routes.put('/ads/:id', controllers.AdController.update)
+routes.delete('/ads/:id', controllers.AdController.destroy)
+
+routes.post('/purchases', controllers.PurchaseController.store)
+
 module.exports = routes
